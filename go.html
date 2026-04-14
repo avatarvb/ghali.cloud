@@ -321,6 +321,20 @@
             background-size: 16px;
         }
 
+        #service {
+            height: 140px;
+            padding: 8px 0;
+        }
+
+        #service option {
+            padding: 8px 16px;
+        }
+
+        #service option:checked {
+            background: var(--gold);
+            color: var(--black);
+        }
+
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
@@ -612,12 +626,12 @@
                     </div>
                     <div class="form-group">
                         <label for="service">Service souhaité</label>
-                        <select id="service" name="service" required>
+                        <select id="service" name="service" multiple required>
                             <option value="">Sélectionnez un service</option>
+                            <option value="automation">Automatisation</option>
+                            <option value="assistant">Assistant IA</option>
                             <option value="ocr">OCR — Reconnaissance de texte</option>
                             <option value="rag">RAG — Base de connaissances</option>
-                            <option value="assistant">Assistant IA</option>
-                            <option value="automation">Automatisation</option>
                             <option value="other">Autre</option>
                         </select>
                     </div>
