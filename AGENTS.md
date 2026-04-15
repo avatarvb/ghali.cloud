@@ -10,6 +10,7 @@ Static landing pages for ghali.cloud (AI agency). No build step — open `index.
 | `go.html` | Project inquiry form |
 | `ghali_cloud_©_2026.md` | Content source |
 | `assets/` | Logo images (`Gcloud.png`, `Gcloud_black.png`) |
+| `assets/css/main.css` | Shared CSS styles |
 | `assets/js/main.js` | Shared JavaScript (theme, modal, form handling) |
 | `assets/lamborghini/DESIGN.md` | Full design system spec |
 | `DESIGN.md` | Cohere-inspired reference (not in use) |
