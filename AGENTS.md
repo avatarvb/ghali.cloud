@@ -1,65 +1,57 @@
 # AGENTS.md
 
-## Repository Purpose
+## Project Overview
 
-This repo contains:
-- Design system specifications (`DESIGN.md`, `lamborghini/DESIGN.md`)
-- A landing page (`index.html`) for ghali.cloud (AI agency)
-- Content source (`ghali_cloud_©_2026.md`)
+Static landing pages for ghali.cloud (AI agency). No build step — open `index.html` or `go.html` directly in browser.
 
-## Design Systems
+## Files
 
-### Cohere-Inspired (`DESIGN.md`)
-- 22px border-radius signature
-- CohereText serif for headlines, Unica77 sans for body
-- Black/white palette with cool grays
-- Purple-violet hero sections
-- Interaction Blue (#1863dc) for hover states
+| File | Purpose |
+|------|---------|
+| `index.html` | Main landing page |
+| `go.html` | Project inquiry form |
+| `ghali_cloud_©_2026.md` | Content source |
+| `assets/` | Logo images (`Gcloud.png`, `Gcloud_black.png`) |
 
-### Lamborghini-Inspired (`lamborghini/DESIGN.md`)
-- Absolute black (#000000) canvas
-- Zero border-radius everywhere
-- Space Grotesk as serif fallback
-- Gold accent (#FFC000) for CTAs
-- All uppercase typography
+## Design System
 
-## Landing Page Stack
+The HTML files use the **Lamborghini-inspired** design (defined in `assets/lamborghini/DESIGN.md`).
 
-- **HTML/CSS/JS**: Single `index.html` file
-- **Fonts**: Space Grotesk (display), Inter (body) via Google Fonts
-- **Icons**: Lucide via `https://unpkg.com/lucide@latest`
-- **Animations**: Animate.css via CDN
-- **No build step**: Plain HTML, works by opening in browser
+### Key Rules
+- Background: `#000000` (absolute black)
+- Primary CTA: Gold `#FFC000` with black text
+- Secondary CTA: Transparent with white border 50% opacity
+- **Zero border-radius** on all elements
+- Typography: Space Grotesk (Google Fonts)
+- Icons: Lucide via CDN (`https://unpkg.com/lucide@latest`)
+- All text: uppercase for headings/labels
 
-## Content Workflow
-
-When updating `index.html`:
-1. Reference `ghali_cloud_©_2026.md` for text content
-2. Follow Lamborghini design system for styling
-3. Use Lucide icon names with `data-lucide="icon-name"` attribute
-4. Call `lucide.createIcons()` after DOM loads to render icons
-
-## Common Patterns
-
-### Lucide Icon
+### Lucide Icons
 ```html
 <i data-lucide="icon-name"></i>
+<script>lucide.createIcons();</script>
 ```
 
-### Button Variants
-- `.btn-gold`: Gold background, black text (primary CTA)
-- `.btn-ghost`: Transparent with white border 50% opacity (secondary)
-
-### Card Grid
+### CSS Variables
 ```css
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 2px;
-background: var(--charcoal);
+--gold: #FFC000
+--black: #000000
+--charcoal: #202020
+--dark-iron: #181818
+--ash: #7D7D7D (body text)
 ```
 
-## Key Colors (Lamborghini)
-- `--gold`: #FFC000
-- `--black`: #000000
-- `--charcoal`: #202020
-- `--ash`: #7D7D7D (body text)
+### Button Classes
+- `.btn-gold`: Gold background, black text (primary CTA)
+- `.btn-ghost`: Transparent, white border 50% opacity (secondary)
+
+## Development
+
+1. Open `index.html` directly in browser (no server needed)
+2. Lucide icons auto-initialize via `lucide.createIcons()`
+3. Theme toggle uses `localStorage` key `'theme'` (values: `'dark'`, `'light'`)
+4. Dark mode is default
+
+## Content Updates
+
+When updating `index.html`, reference `ghali_cloud_©_2026.md` for text content.
