@@ -367,6 +367,41 @@
             background: var(--gold-dark);
         }
 
+        .contact-direct {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--dark-iron);
+            text-align: center;
+        }
+
+        .contact-direct p {
+            font-size: 14px;
+            color: var(--ash);
+            margin-bottom: 16px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--white);
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--gold);
+        }
+
+        .contact-link i {
+            width: 16px;
+            height: 16px;
+            color: var(--gold);
+        }
+
         .btn-gold:hover i,
         .btn-gold:hover svg {
             animation: fly 0.6s ease-out forwards;
@@ -669,6 +704,11 @@
                     </div>
                     <button type="submit" class="btn-gold">Envoyer ma demande <i data-lucide="send"></i></button>
                 </form>
+                <div class="contact-direct">
+                    <p>Ou contactez-nous directement :</p>
+                    <a href="mailto:contact@ghali.cloud" class="contact-link"><i data-lucide="mail"></i> contact@ghali.cloud</a>
+                    <a href="tel:+212610061591" class="contact-link"><i data-lucide="phone"></i> +212 6 10 06 15 91</a>
+                </div>
             </div>
         </div>
     </section>
