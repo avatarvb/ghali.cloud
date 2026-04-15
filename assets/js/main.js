@@ -1,0 +1,134 @@
+lucide.createIcons();
+
+document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.querySelector('.nav');
+    const themeToggles = document.querySelectorAll('.theme-toggle');
+    const html = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    themeToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    });
+
+    const animateCounter = (element, target, duration) => {
+        const start = 0;
+        const startTime = performance.now();
+        const isFloat = target.toString().includes('.');
+        const decimals = isFloat ? (target.toString().split('.')[1] || '').length : 0;
+
+        const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            let current = start + (target - start) * easeOut;
+
+            if (isFloat) {
+                element.textContent = current.toFixed(decimals) + '%';
+            } else if (target.toString().includes('+')) {
+                element.textContent = Math.round(current) + '+';
+            } else {
+                element.textContent = Math.round(current) + '%';
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        };
+
+        requestAnimationFrame(update);
+    };
+
+    const observerOptions = {
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const statValues = entry.target.querySelectorAll('.stat-value');
+                statValues.forEach(stat => {
+                    const text = stat.textContent;
+                    let target;
+
+                    if (text.includes('%')) {
+                        target = parseFloat(text);
+                        animateCounter(stat, target, 2000);
+                    } else if (text.includes('+')) {
+                        target = parseInt(text);
+                        animateCounter(stat, target, 2000);
+                    }
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+
+    const aboutLink = document.getElementById('about-link');
+    const aboutModal = document.getElementById('about-modal');
+    const modalClose = document.querySelector('.modal-close');
+
+    if (aboutLink && aboutModal) {
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                aboutModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    if (modalClose) {
+        modalClose.addEventListener('click', () => {
+            aboutModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    const form = document.getElementById('project-form');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            console.log('Form submitted:', data);
+            alert('Merci pour votre demande ! Nous vous contacterons dans les 24 heures.');
+            form.reset();
+        });
+    }
+
+    lucide.createIcons();
+});
