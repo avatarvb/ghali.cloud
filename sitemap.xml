@@ -3,13 +3,13 @@
     <url>
         <loc>https://ghali.cloud/</loc>
         <lastmod>2026-04-15</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://ghali.cloud/go.html</loc>
         <lastmod>2026-04-15</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 </urlset>
