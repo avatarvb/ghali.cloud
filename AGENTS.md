@@ -40,3 +40,8 @@ Static landing pages for ghali.cloud (AI agency). No build step — open `index.
 2. Lucide icons auto-initialize via `lucide.createIcons()`
 3. Theme toggle uses `localStorage` key `'theme'` (values: `'dark'`, `'light'`)
 4. Dark mode is default
+
+## SEO Files
+- `robots.txt` — Allow crawlers, point to sitemap
+- `sitemap.xml` — Site structure for search engines
+- Structured data (JSON-LD) embedded in `index.html` for Organization schema
