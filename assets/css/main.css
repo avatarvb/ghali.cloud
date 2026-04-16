@@ -309,6 +309,9 @@ body {
 .hero-label i {
     width: 20px;
     height: 20px;
+}
+
+.hero-label:hover i {
     animation: pulse 2s ease-in-out infinite;
 }
 
