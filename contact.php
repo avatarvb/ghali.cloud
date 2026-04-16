@@ -1,6 +1,28 @@
 <?php
 header('Content-Type: application/json');
 
+require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+$envFile = __DIR__ . '/.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        if (strpos($line, '=') !== false) {
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+            if (!empty($key) && !empty($value)) {
+                $_ENV[$key] = $value;
+            }
+        }
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = isset($_POST['name']) ? trim(htmlspecialchars($_POST['name'])) : '';
     $email = isset($_POST['email']) ? trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL)) : '';
@@ -33,9 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $to = 'contact@ghali.cloud';
-    $subject = 'Nouvelle demande de projet - ' . $name;
-
     $services_text = is_array($service) ? implode(', ', $service) : $service;
 
     $budget_labels = [
@@ -55,8 +74,8 @@ INFORMATIONS DU CONTACT
 ----------------------
 Nom: {$name}
 Email: {$email}
-Entreprise: " . ($company ?: 'Non renseigné') . "
-Telephone: " . ($phone ?: 'Non renseigné') . "
+Entreprise: " . ($company ?: 'Non renseigne') . "
+Telephone: " . ($phone ?: 'Non renseigne') . "
 
 DETAILS DU PROJET
 -----------------
@@ -73,30 +92,48 @@ Date: " . date('d/m/Y H:i:s') . "
 ===========================================
 ";
 
-    $headers = [
-        'MIME-Version: 1.0',
-        'Content-type: text/plain; charset=UTF-8',
-        'From: ghali.cloud <contact@ghali.cloud>',
-        'Reply-To: ' . $email,
-        'X-Mailer: PHP/' . phpversion(),
-        'X-Priority: 1'
-    ];
+    $mail = new PHPMailer(true);
 
-    $headers_string = implode("\r\n", $headers);
+    try {
+        $mail->isSMTP();
+        $mail->Host = $_ENV['SMTP_HOST'] ?? 'smtp.hostinger.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $_ENV['SMTP_USERNAME'] ?? '';
+        $mail->Password = $_ENV['SMTP_PASSWORD'] ?? '';
+        
+        $secure = strtolower($_ENV['SMTP_SECURE'] ?? 'ssl');
+        if ($secure === 'ssl') {
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        } else {
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        }
+        
+        $mail->Port = (int)($_ENV['SMTP_PORT'] ?? 465);
+        $mail->CharSet = 'UTF-8';
+        $mail->SMTPDebug = 0;
 
-    $mail_sent = @mail($to, $subject, $email_content, $headers_string);
+        $mail->setFrom(
+            $_ENV['SMTP_FROM_EMAIL'] ?? 'contact@ghali.cloud',
+            $_ENV['SMTP_FROM_NAME'] ?? 'ghali.cloud'
+        );
+        $mail->addAddress($_ENV['MAIL_TO'] ?? 'contact@ghali.cloud');
+        $mail->addReplyTo($email, $name);
 
-    if ($mail_sent) {
+        $mail->Subject = 'Nouvelle demande de projet - ' . $name;
+        $mail->Body = $email_content;
+        $mail->isHTML(false);
+
+        $mail->send();
         http_response_code(200);
         echo json_encode([
             'success' => true,
             'message' => 'Votre demande a ete envoyee avec succes. Nous vous contacterons dans les 24 heures.'
         ]);
-    } else {
+    } catch (Exception $e) {
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Une erreur est survenue lors de l\'envoi. Veuillez reessayer.'
+            'message' => "Erreur: {$mail->ErrorInfo}"
         ]);
     }
 } else {

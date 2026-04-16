@@ -1,0 +1,7 @@
+{
+    "name": "ghali/contact-form",
+    "description": "Contact form for ghali.cloud",
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    }
+}
