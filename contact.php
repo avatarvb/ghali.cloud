@@ -76,7 +76,7 @@ Date: " . date('d/m/Y H:i:s') . "
     $headers = [
         'MIME-Version: 1.0',
         'Content-type: text/plain; charset=UTF-8',
-        'From: ghali.cloud <noreply@ghali.cloud>',
+        'From: ghali.cloud <contact@ghali.cloud>',
         'Reply-To: ' . $email,
         'X-Mailer: PHP/' . phpversion(),
         'X-Priority: 1'
