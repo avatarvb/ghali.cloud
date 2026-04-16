@@ -120,13 +120,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const form = document.getElementById('project-form');
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            console.log('Form submitted:', data);
-            alert('Merci pour votre demande ! Nous vous contacterons dans les 24 heures.');
-            form.reset();
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i data-lucide="loader"></i> Envoi en cours...';
+            submitBtn.disabled = true;
+            lucide.createIcons();
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(result.message);
+                    form.reset();
+                } else {
+                    alert('Erreur: ' + result.message);
+                }
+            } catch (error) {
+                alert('Une erreur est survenue. Veuillez réessayer.');
+                console.error('Form submission error:', error);
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            lucide.createIcons();
         });
     }
 
