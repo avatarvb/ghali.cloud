@@ -45,8 +45,8 @@
 }
 
 [data-theme="light"] .float-icon {
-    opacity: 0.7;
-    color: var(--charcoal);
+    opacity: 0.5;
+    color: var(--gold);
 }
 
 html {
@@ -470,7 +470,7 @@ body {
 .float-icon {
     position: absolute;
     color: var(--gold);
-    opacity: 0.04;
+    opacity: 0.1;
 }
 
 .float-1 { top: 15%; left: 5%; animation: gentleFloat 6s ease-in-out infinite; }
