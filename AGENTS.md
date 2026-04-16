@@ -2,25 +2,25 @@
 
 Static HTML site — no build step. Open `index.html` or `go.html` directly in browser.
 
-## Files
+## Key Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Main landing page |
+| `index.html` | Main landing page (French) |
 | `go.html` | Project inquiry form |
 | `assets/css/main.css` | All styles |
 | `assets/js/main.js` | Theme toggle, modal, form handling |
-| `assets/Gcloud.png` | Logo (white) |
-| `assets/Gcloud_black.png` | Logo (dark mode) |
+| `assets/Gcloud.png` | Logo (dark mode) |
+| `assets/Gcloud_black.png` | Logo (light mode) |
 
 ## Design System
 
 - **Background**: `#000000` (absolute black)
 - **Primary CTA**: Gold `#FFC000` with black text
 - **Secondary CTA**: Transparent with white border 50% opacity
-- **Zero border-radius** on all elements
-- **Typography**: Space Grotesk (Google Fonts)
-- **Icons**: Lucide via CDN — initialize with `lucide.createIcons()`
+- **Zero border-radius** on all elements (non-negotiable)
+- **Typography**: Space Grotesk (Google Fonts) — NOT Inter
+- **Icons**: Lucide via CDN — **must call `lucide.createIcons()` after DOM load**
 
 ### Button Classes
 - `.btn-gold`: Gold background, black text
@@ -29,29 +29,17 @@ Static HTML site — no build step. Open `index.html` or `go.html` directly in b
 ## Development
 
 1. Open `index.html` directly in browser (no server)
-2. Call `lucide.createIcons()` after DOM load
+2. **Always call `lucide.createIcons()`** after DOM load (also call at end of main.js)
 3. Theme toggle uses `localStorage` key `'theme'` (values: `'dark'`, `'light'`)
 4. Dark mode is default
+5. Logo image swaps via CSS `content: url()` on `[data-theme="light"]`
 
-## Theme Implementation
+## Design Reference
 
-CSS variables swap on `[data-theme="light"]` on `<html>`:
-```css
-[data-theme="light"] {
-    --black: #FFFFFF;
-    --white: #000000;
-    /* etc */
-}
-```
-Logo image also swaps via CSS `content: url()`.
+- `assets/lamborghini/DESIGN.md` — Full Lamborghini-inspired spec (in use)
+- `DESIGN.md` — Cohere-inspired reference (not in use, ignore)
 
 ## SEO
 
-- `robots.txt` — allow crawlers, point to sitemap
-- `sitemap.xml` — site structure
+- `robots.txt` and `sitemap.xml` included
 - JSON-LD Organization schema embedded in `index.html`
-
-## Design Reference Docs
-
-- `assets/lamborghini/DESIGN.md` — full Lamborghini-inspired spec (in use)
-- `DESIGN.md` — Cohere-inspired reference (not in use)
