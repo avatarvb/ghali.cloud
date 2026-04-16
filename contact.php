@@ -56,11 +56,11 @@ INFORMATIONS DU CONTACT
 Nom: {$name}
 Email: {$email}
 Entreprise: " . ($company ?: 'Non renseigné') . "
-Téléphone: " . ($phone ?: 'Non renseigné') . "
+Telephone: " . ($phone ?: 'Non renseigné') . "
 
-DÉTAILS DU PROJET
+DETAILS DU PROJET
 -----------------
-Services souhaités: {$services_text}
+Services souhaites: {$services_text}
 Budget maximum: {$budget_text}
 
 MESSAGE:
@@ -68,39 +68,41 @@ MESSAGE:
 {$message}
 
 ===========================================
-Envoyé depuis le formulaire ghali.cloud
+Envoye depuis le formulaire ghali.cloud
 Date: " . date('d/m/Y H:i:s') . "
 ===========================================
 ";
 
     $headers = [
-        'From' => 'noreply@ghali.cloud',
-        'Reply-To' => $email,
-        'X-Mailer' => 'PHP/' . phpversion(),
-        'Content-Type' => 'text/plain; charset=UTF-8'
+        'MIME-Version: 1.0',
+        'Content-type: text/plain; charset=UTF-8',
+        'From: ghali.cloud <noreply@ghali.cloud>',
+        'Reply-To: ' . $email,
+        'X-Mailer: PHP/' . phpversion(),
+        'X-Priority: 1'
     ];
 
     $headers_string = implode("\r\n", $headers);
 
-    $mail_sent = mail($to, $subject, $email_content, $headers_string);
+    $mail_sent = @mail($to, $subject, $email_content, $headers_string);
 
     if ($mail_sent) {
         http_response_code(200);
         echo json_encode([
             'success' => true,
-            'message' => 'Votre demande a été envoyée avec succès. Nous vous contacterons dans les 24 heures.'
+            'message' => 'Votre demande a ete envoyee avec succes. Nous vous contacterons dans les 24 heures.'
         ]);
     } else {
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.'
+            'message' => 'Une erreur est survenue lors de l\'envoi. Veuillez reessayer.'
         ]);
     }
 } else {
     http_response_code(405);
     echo json_encode([
         'success' => false,
-        'message' => 'Méthode non autorisée'
+        'message' => 'Methode non autorisee'
     ]);
 }
