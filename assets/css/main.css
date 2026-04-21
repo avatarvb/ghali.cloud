@@ -380,26 +380,6 @@ body {
     background: var(--gold-dark);
 }
 
-.btn-gold:hover i,
-.btn-gold:hover svg {
-    animation: fly 0.6s ease-out forwards;
-}
-
-@keyframes fly {
-    0% {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 1;
-    }
-    50% {
-        transform: translate(5px, -10px) rotate(-45deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(10px, -30px) rotate(-45deg);
-        opacity: 0;
-    }
-}
-
 .btn-gold i,
 .btn-gold svg {
     width: 18px;
