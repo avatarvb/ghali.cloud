@@ -8,14 +8,12 @@ Static HTML site — no build step. Open any `.html` file directly in browser.
 |------|---------|
 | `index.html` | Main landing page (French) |
 | `go.html` | Project inquiry form |
-| `policy.html` | Legal policies (privacy, terms, cookies, legal notice) |
+| `policy.html` | Legal policies |
 | `comingsoon.html` | Coming soon page (Blog) |
+| `contact.php` | Form backend (SMTP email via PHPMailer) |
 | `assets/css/main.css` | All styles |
 | `assets/js/main.js` | Theme toggle, modal, form handling |
-| `assets/Gcloud.png` | Logo (dark mode) |
-| `assets/Gcloud_black.png` | Logo (light mode) |
-| `assets/ghali_cloud_CGU.pdf` | Terms of Service PDF |
-| `assets/RGPD.pdf` | GDPR document PDF |
+| `assets/lamborghini/DESIGN.md` | Full design spec |
 
 ## Design System
 
@@ -24,35 +22,37 @@ Static HTML site — no build step. Open any `.html` file directly in browser.
 - **Secondary CTA**: Transparent with white border 50% opacity
 - **Zero border-radius** on all elements (non-negotiable)
 - **Typography**: Space Grotesk (Google Fonts) — NOT Inter
-- **Icons**: Lucide via CDN — **must call `lucide.createIcons()` after DOM load**
-- **Animations**: animate.css CDN for UI animations
+- **Icons**: Lucide via CDN
+- **Animations**: animate.css CDN
 
 ### Button Classes
 - `.btn-gold`: Gold background, black text
-- `.btn-ghost`: Transparent, white border at 50% opacity
+- `.btn-ghost`: Transparent, white border 50% opacity
 
 ## Development
 
-1. Open any `.html` directly in browser (no server)
-2. **Always call `lucide.createIcons()`** after DOM load (also call at end of main.js)
-3. Theme toggle uses `localStorage` key `'theme'` (values: `'dark'`, `'light'`)
+1. Open any `.html` directly in browser (no server needed)
+2. **Always call `lucide.createIcons()`** after any DOM manipulation (also at end of main.js)
+3. Theme toggle: `localStorage` key `'theme'` (`'dark'` or `'light'`)
 4. Dark mode is default
-5. Logo image swaps via CSS `content: url()` on `[data-theme="light"]`
-6. Nav has blur effect via pseudo-element `::before` with `backdrop-filter`
+5. Logo swaps via CSS `content: url()` on `[data-theme="light"]`
+6. Nav blur effect via `::before` pseudo-element with `backdrop-filter`
+
+## PHP Backend (contact.php)
+
+- **Requires**: `composer install` to generate `vendor/autoload.php`
+- **Config**: Copy `.env.example` to `.env` and set SMTP credentials
+- **Endpoints**: POST to `contact.php` → sends email via SMTP
+- **Env vars**: `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_FROM_EMAIL`, `MAIL_TO`
 
 ## Footer Links
 
 - **Mentions légales** → `policy.html`
-- **CGU** → `assets/ghali_cloud_CGU.pdf` (opens in new tab)
-- **RGPD** → `assets/RGPD.pdf` (opens in new tab)
+- **CGU** → `assets/ghali_cloud_CGU.pdf` (new tab)
+- **RGPD** → `assets/RGPD.pdf` (new tab)
 - **Blog** → `comingsoon.html`
-
-## Design Reference
-
-- `assets/lamborghini/DESIGN.md` — Full Lamborghini-inspired spec (in use)
-- `DESIGN.md` — Cohere-inspired reference (not in use, ignore)
 
 ## SEO
 
 - `robots.txt` and `sitemap.xml` included
-- JSON-LD Organization schema embedded in `index.html`
+- JSON-LD Organization schema in `index.html`
