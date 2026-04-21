@@ -373,7 +373,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 16px;
 }
 
 .btn-gold:hover {
@@ -382,8 +382,9 @@ body {
 
 .btn-gold i,
 .btn-gold svg {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
 }
 
 .btn-ghost {
