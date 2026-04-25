@@ -132,6 +132,19 @@ body {
     opacity: 1;
 }
 
+.nav-links a[href="discuss.html"] {
+    background: var(--gold);
+    color: var(--black);
+    padding: 12px 24px;
+    opacity: 1;
+}
+
+.nav-links a[href="discuss.html"]:hover {
+    background: var(--gold-dark);
+    color: var(--black);
+    opacity: 1;
+}
+
 .nav-links .nav-cta {
     background: var(--gold);
     color: var(--black);
@@ -141,6 +154,19 @@ body {
 
 .nav-links .nav-cta:hover {
     background: var(--gold-dark);
+}
+
+.nav-links .nav-discuter {
+    background: var(--gold);
+    color: var(--black);
+    padding: 12px 24px;
+    opacity: 1;
+}
+
+.nav-links .nav-discuter:hover {
+    background: var(--gold-dark);
+    color: var(--black);
+    opacity: 1;
 }
 
 .logo {
@@ -163,10 +189,10 @@ body {
 
 .theme-toggle {
     background: none;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     cursor: pointer;
     padding: 8px;
-    color: var(--white);
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,6 +215,11 @@ body {
 
 [data-theme="light"] .theme-toggle .sun-icon {
     display: block;
+}
+
+[data-theme="light"] .theme-toggle {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: #000000;
 }
 
 [data-theme="light"] .theme-toggle .moon-icon {
@@ -378,6 +409,27 @@ body {
 
 .btn-gold:hover {
     background: var(--gold-dark);
+}
+
+.btn-gold:hover i,
+.btn-gold:hover svg {
+    animation: rocketFly 0.6s ease-out forwards;
+}
+
+.btn-coffee:hover i,
+.btn-coffee:hover svg {
+    animation: none;
+}
+
+@keyframes rocketFly {
+    0% {
+        transform: translate(0, 0) rotate(-45deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0, -30px) rotate(-45deg);
+        opacity: 0;
+    }
 }
 
 .btn-gold i,
@@ -767,17 +819,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 24px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
     background: var(--dark-iron);
     border: 1px solid var(--charcoal);
-    padding: 20px 24px;
+    padding: 24px 48px;
     margin-top: 2px;
     font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--ash);
+    width: 100%;
 }
 
 .security-badge span {
@@ -785,6 +839,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
 .security-badge i {
