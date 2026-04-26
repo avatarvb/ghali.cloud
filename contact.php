@@ -65,10 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $budget_text = isset($budget_labels[$budget]) ? $budget_labels[$budget] : $budget;
 
     $email_content = "
-===========================================
-NOUVELLE DEMANDE DE PROJET - ghali.cloud
-===========================================
-
 INFORMATIONS DU CONTACT
 ----------------------
 Nom: {$name}
@@ -84,11 +80,6 @@ Budget maximum: {$budget_text}
 MESSAGE:
 --------
 {$message}
-
-===========================================
-Envoye depuis le formulaire ghali.cloud
-Date: " . date('d/m/Y H:i:s') . "
-===========================================
 ";
 
     $mail = new PHPMailer(true);
