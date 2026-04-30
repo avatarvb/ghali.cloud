@@ -85,15 +85,41 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="service">Service souhaité <small>[Sélectionnez service(s)]</small></label>
-                        <select id="service" name="service" multiple required>
-
-                            <option value="automation">Automatisation</option>
-                            <option value="assistant">Assistant IA</option>
-                            <option value="ocr">OCR — Reconnaissance de texte</option>
-                            <option value="rag">RAG — Base de connaissances</option>
-                            <option value="other">Autre</option>
-                        </select>
+                        <label>Service souhaité <small>[Sélectionnez service(s)]</small></label>
+                        <div class="dropdown-picker" id="service-dropdown">
+                            <button type="button" class="dropdown-trigger" aria-expanded="false">
+                                <span class="dropdown-placeholder">Choisir un ou plusieurs services</span>
+                                <span class="dropdown-tags"></span>
+                                <i data-lucide="chevron-down" class="dropdown-chevron"></i>
+                            </button>
+                            <div class="dropdown-menu" role="listbox" aria-multiselectable="true">
+                                <label class="dropdown-item" role="option">
+                                    <input type="checkbox" name="service[]" value="automation">
+                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
+                                    <span>Automatisation</span>
+                                </label>
+                                <label class="dropdown-item" role="option">
+                                    <input type="checkbox" name="service[]" value="assistant">
+                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
+                                    <span>Assistant IA</span>
+                                </label>
+                                <label class="dropdown-item" role="option">
+                                    <input type="checkbox" name="service[]" value="ocr">
+                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
+                                    <span>OCR — Reconnaissance de texte</span>
+                                </label>
+                                <label class="dropdown-item" role="option">
+                                    <input type="checkbox" name="service[]" value="rag">
+                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
+                                    <span>RAG — Base de connaissances</span>
+                                </label>
+                                <label class="dropdown-item" role="option">
+                                    <input type="checkbox" name="service[]" value="other">
+                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
+                                    <span>Autre</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="budget">MAX devis</label>
@@ -109,6 +135,7 @@
                         <label for="message">Décrivez votre projet</label>
                         <textarea id="message" name="message" placeholder="Expliquez-nous votre besoin, vos contraintes et vos objectifs..." required></textarea>
                     </div>
+                    <div id="form-toast" class="form-toast" role="status" aria-live="polite"></div>
                     <button type="submit" class="btn-gold">Envoyer ma demande <i data-lucide="send"></i></button>
                 </form>
                 <div class="contact-direct">
