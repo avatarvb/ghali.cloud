@@ -1111,19 +1111,13 @@ body {
     display: none;
 }
 
-.service-option:has(input[type="checkbox"]:checked) {
+.service-option.checked {
     background: rgba(255, 192, 0, 0.06);
     border-left: 3px solid var(--gold);
     padding-left: 17px;
 }
 
-.service-option span:first-child {
-    color: var(--white);
-    font-weight: 400;
-    flex: 1;
-}
-
-.service-option:has(input[type="checkbox"]:checked) span:first-child {
+.service-option.checked span {
     color: var(--gold);
 }
 

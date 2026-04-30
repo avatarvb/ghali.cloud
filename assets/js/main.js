@@ -119,6 +119,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const form = document.getElementById('project-form');
+    const serviceCheckboxes = document.querySelectorAll('.service-option input[type="checkbox"]');
+    serviceCheckboxes.forEach(cb => {
+        cb.addEventListener('change', function() {
+            this.closest('.service-option').classList.toggle('checked', this.checked);
+        });
+    });
     if (form) {
         const showToast = (message, type) => {
             const toast = document.getElementById('form-toast');
@@ -160,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (result.success) {
                     showToast(result.message, 'success');
                     form.reset();
+                    document.querySelectorAll('.service-option.checked').forEach(el => el.classList.remove('checked'));
                 } else {
                     showToast(result.message || 'Une erreur est survenue.', 'error');
                 }
