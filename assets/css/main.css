@@ -1112,13 +1112,13 @@ body {
 }
 
 .service-option.checked {
-    background: rgba(255, 192, 0, 0.06);
-    border-left: 3px solid var(--gold);
-    padding-left: 17px;
+    background: rgba(255, 192, 0, 0.06) !important;
+    border-left: 3px solid var(--gold) !important;
+    padding-left: 17px !important;
 }
 
 .service-option.checked span {
-    color: var(--gold);
+    color: var(--gold) !important;
 }
 
 .form-group textarea {
