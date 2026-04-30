@@ -118,16 +118,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.querySelectorAll('.service-option input[type="checkbox"]').forEach(cb => {
-        cb.addEventListener('change', function() {
-            const label = this.closest('.service-option');
+(function() {
+    var options = document.querySelectorAll('.service-option input[type="checkbox"]');
+    for (var i = 0; i < options.length; i++) {
+        options[i].addEventListener('change', function() {
+            var label = this.parentNode;
             if (this.checked) {
                 label.classList.add('checked');
             } else {
                 label.classList.remove('checked');
             }
         });
-    });
+    }
+})();
 
     const form = document.getElementById('project-form');
     if (form) {

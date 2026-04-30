@@ -1097,8 +1097,10 @@ body {
     gap: 16px;
     padding: 16px 20px;
     border: none;
+    background: #181818; /* Fallback for var(--dark-iron) */
     background: var(--dark-iron);
     cursor: pointer;
+    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
     font-size: 14px;
 }
@@ -1113,11 +1115,13 @@ body {
 
 .service-option.checked {
     background: rgba(255, 192, 0, 0.06) !important;
+    border-left: 3px solid #FFC000 !important;
     border-left: 3px solid var(--gold) !important;
     padding-left: 17px !important;
 }
 
 .service-option.checked span {
+    color: #FFC000 !important;
     color: var(--gold) !important;
 }
 
