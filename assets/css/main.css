@@ -1081,150 +1081,49 @@ body {
     cursor: pointer;
 }
 
-.dropdown-picker {
-    position: relative;
-}
-
-.dropdown-trigger {
-    width: 100%;
-    padding: 16px;
-    font-size: 14px;
-    font-family: inherit;
-    background: var(--dark-iron);
-    border: 1px solid var(--ash);
-    color: var(--white);
-    outline: none;
-    cursor: pointer;
+.service-options {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: border-color 0.2s ease;
-    text-align: left;
-    min-height: 52px;
-}
-
-.dropdown-trigger:focus {
-    border-color: var(--gold);
-}
-
-.dropdown-trigger[aria-expanded="true"] {
-    border-color: var(--gold);
-}
-
-.dropdown-trigger .dropdown-placeholder {
-    color: var(--ash);
-}
-
-.dropdown-trigger:has(.dropdown-tags:not(:empty)) .dropdown-placeholder {
-    display: none;
-}
-
-.dropdown-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.dropdown-tag {
-    font-size: 12px;
-    padding: 4px 10px;
-    background: var(--gold);
-    color: var(--black);
-    white-space: nowrap;
-}
-
-.dropdown-chevron {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    color: var(--ash);
-    transition: transform 0.2s ease;
-    margin-left: auto;
-}
-
-.dropdown-trigger[aria-expanded="true"] .dropdown-chevron {
-    transform: rotate(180deg);
-    color: var(--gold);
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: 0;
-    background: var(--dark-iron);
-    border: 1px solid var(--ash);
-    z-index: 100;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.2s ease;
-}
-
-.dropdown-picker.open .dropdown-menu {
-    max-height: 300px;
-    opacity: 1;
-    overflow-y: auto;
-}
-
-.dropdown-item {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 12px;
-    padding: 14px 16px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+    border: none;
+    background: var(--dark-iron);
     cursor: pointer;
-    transition: background 0.15s ease;
-    user-select: none;
-    border-bottom: 1px solid rgba(125, 125, 125, 0.2);
+    transition: all 0.2s ease;
+    font-size: 14px;
 }
 
-.dropdown-item:last-child {
-    border-bottom: none;
+.service-option:hover {
+    background: rgba(255, 192, 0, 0.04);
 }
 
-.dropdown-item:hover {
-    background: rgba(255, 192, 0, 0.05);
-}
-
-.dropdown-item input[type="checkbox"] {
+.service-option input[type="checkbox"] {
     display: none;
 }
 
-.dropdown-check {
-    width: 20px;
-    height: 20px;
-    border: 1px solid var(--ash);
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
+.service-option:has(input[type="checkbox"]:checked) {
+    background: rgba(255, 192, 0, 0.06);
+    border-left: 3px solid var(--gold);
+    padding-left: 17px;
 }
 
-.dropdown-check i {
-    width: 14px;
-    height: 14px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    color: var(--black);
-}
-
-.dropdown-item input[type="checkbox"]:checked + .dropdown-check {
-    background: var(--gold);
-    border-color: var(--gold);
-}
-
-.dropdown-item input[type="checkbox"]:checked + .dropdown-check i {
-    opacity: 1;
-}
-
-.dropdown-item span:last-child {
-    font-size: 14px;
+.service-option span:first-child {
     color: var(--white);
+    font-weight: 400;
+    flex: 1;
 }
 
-.dropdown-item input[type="checkbox"]:checked ~ span:last-child {
+.service-option:has(input[type="checkbox"]:checked) span:first-child {
     color: var(--gold);
 }
 

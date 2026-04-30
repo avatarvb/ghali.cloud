@@ -118,59 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const serviceDropdown = document.getElementById('service-dropdown');
-    if (serviceDropdown) {
-        const trigger = serviceDropdown.querySelector('.dropdown-trigger');
-        const tagsContainer = trigger.querySelector('.dropdown-tags');
-        const checkboxes = serviceDropdown.querySelectorAll('.dropdown-item input[type="checkbox"]');
-        const items = serviceDropdown.querySelectorAll('.dropdown-item');
-
-        const serviceLabels = {
-            automation: 'Automatisation',
-            assistant: 'Assistant IA',
-            ocr: 'OCR',
-            rag: 'RAG',
-            other: 'Autre'
-        };
-
-        const updateTags = () => {
-            tagsContainer.innerHTML = '';
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    const tag = document.createElement('span');
-                    tag.className = 'dropdown-tag';
-                    tag.textContent = serviceLabels[cb.value] || cb.value;
-                    tagsContainer.appendChild(tag);
-                }
-            });
-        };
-
-        trigger.addEventListener('click', (e) => {
-            if (e.target.closest('.dropdown-item')) return;
-            serviceDropdown.classList.toggle('open');
-            trigger.setAttribute('aria-expanded', serviceDropdown.classList.contains('open'));
-        });
-
-        items.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        });
-
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', () => {
-                updateTags();
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!serviceDropdown.contains(e.target)) {
-                serviceDropdown.classList.remove('open');
-                trigger.setAttribute('aria-expanded', 'false');
-            }
-        });
-    }
-
     const form = document.getElementById('project-form');
     if (form) {
         const showToast = (message, type) => {
@@ -213,9 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (result.success) {
                     showToast(result.message, 'success');
                     form.reset();
-                    const tags = document.querySelector('.dropdown-tags');
-                    if (tags) tags.innerHTML = '';
-                    serviceDropdown?.classList.remove('open');
                 } else {
                     showToast(result.message || 'Une erreur est survenue.', 'error');
                 }

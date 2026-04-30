@@ -85,41 +85,39 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Service souhaité <small>[Sélectionnez service(s)]</small></label>
-                        <div class="dropdown-picker" id="service-dropdown">
-                            <button type="button" class="dropdown-trigger" aria-expanded="false">
-                                <span class="dropdown-placeholder">Choisir un ou plusieurs services</span>
-                                <span class="dropdown-tags"></span>
-                                <i data-lucide="chevron-down" class="dropdown-chevron"></i>
-                            </button>
-                            <div class="dropdown-menu" role="listbox" aria-multiselectable="true">
-                                <label class="dropdown-item" role="option">
-                                    <input type="checkbox" name="service[]" value="automation">
-                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
+                        <label>Service souhaité</label>
+                        <fieldset class="service-options">
+                            <div>
+                                <label for="service-automation" class="service-option">
                                     <span>Automatisation</span>
-                                </label>
-                                <label class="dropdown-item" role="option">
-                                    <input type="checkbox" name="service[]" value="assistant">
-                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
-                                    <span>Assistant IA</span>
-                                </label>
-                                <label class="dropdown-item" role="option">
-                                    <input type="checkbox" name="service[]" value="ocr">
-                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
-                                    <span>OCR — Reconnaissance de texte</span>
-                                </label>
-                                <label class="dropdown-item" role="option">
-                                    <input type="checkbox" name="service[]" value="rag">
-                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
-                                    <span>RAG — Base de connaissances</span>
-                                </label>
-                                <label class="dropdown-item" role="option">
-                                    <input type="checkbox" name="service[]" value="other">
-                                    <span class="dropdown-check"><i data-lucide="check"></i></span>
-                                    <span>Autre</span>
+                                    <input type="checkbox" name="service[]" value="automation" id="service-automation">
                                 </label>
                             </div>
-                        </div>
+                            <div>
+                                <label for="service-assistant" class="service-option">
+                                    <span>Assistant IA</span>
+                                    <input type="checkbox" name="service[]" value="assistant" id="service-assistant">
+                                </label>
+                            </div>
+                            <div>
+                                <label for="service-ocr" class="service-option">
+                                    <span>OCR — Reconnaissance de texte</span>
+                                    <input type="checkbox" name="service[]" value="ocr" id="service-ocr">
+                                </label>
+                            </div>
+                            <div>
+                                <label for="service-rag" class="service-option">
+                                    <span>RAG — Base de connaissances</span>
+                                    <input type="checkbox" name="service[]" value="rag" id="service-rag">
+                                </label>
+                            </div>
+                            <div>
+                                <label for="service-other" class="service-option">
+                                    <span>Autre</span>
+                                    <input type="checkbox" name="service[]" value="other" id="service-other">
+                                </label>
+                            </div>
+                        </fieldset>
                     </div>
                     <div class="form-group">
                         <label for="budget">MAX devis</label>
