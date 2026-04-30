@@ -1,14 +1,13 @@
 lucide.createIcons();
 
 document.addEventListener('DOMContentLoaded', function() {
-    const nav = document.querySelector('.nav');
-    const themeToggles = document.querySelectorAll('.theme-toggle');
-    const html = document.documentElement;
-
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    var nav = document.querySelector('.nav');
+    var themeToggles = document.querySelectorAll('.theme-toggle');
+    var html = document.documentElement;
+    var savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             nav.classList.add('scrolled');
         } else {
@@ -16,94 +15,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    themeToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+    for (var i = 0; i < themeToggles.length; i++) {
+        themeToggles[i].addEventListener('click', function() {
+            var current = html.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
         });
-    });
+    }
 
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            const mobileMenu = document.querySelector('.mobile-menu');
-            if (mobileMenu) {
-                mobileMenu.classList.remove('active');
-            }
+    var mobileLinks = document.querySelectorAll('.mobile-menu a');
+    for (var j = 0; j < mobileLinks.length; j++) {
+        mobileLinks[j].addEventListener('click', function() {
+            var menu = document.querySelector('.mobile-menu');
+            if (menu) menu.classList.remove('active');
         });
-    });
+    }
 
-    const animateCounter = (element, target, duration) => {
-        const start = 0;
-        const startTime = performance.now();
-        const isFloat = target.toString().includes('.');
-        const decimals = isFloat ? (target.toString().split('.')[1] || '').length : 0;
+    var statsSection = document.querySelector('.stats');
+    if (statsSection) {
+        var animateCounter = function(element, target, duration) {
+            var start = 0;
+            var startTime = performance.now();
+            var isFloat = target.toString().indexOf('.') !== -1;
+            var decimals = isFloat ? (target.toString().split('.')[1] || '').length : 0;
 
-        const update = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            let current = start + (target - start) * easeOut;
+            var update = function(currentTime) {
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                var easeOut = 1 - Math.pow(1 - progress, 3);
+                var current = start + (target - start) * easeOut;
 
-            if (isFloat) {
-                element.textContent = current.toFixed(decimals) + '%';
-            } else if (target.toString().includes('+')) {
-                element.textContent = Math.round(current) + '+';
-            } else {
-                element.textContent = Math.round(current) + '%';
-            }
+                if (isFloat) {
+                    element.textContent = current.toFixed(decimals) + '%';
+                } else if (target.toString().indexOf('+') !== -1) {
+                    element.textContent = Math.round(current) + '+';
+                } else {
+                    element.textContent = Math.round(current) + '%';
+                }
 
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            };
+            requestAnimationFrame(update);
         };
 
-        requestAnimationFrame(update);
-    };
-
-    const observerOptions = {
-        threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const statValues = entry.target.querySelectorAll('.stat-value');
-                statValues.forEach(stat => {
-                    const text = stat.textContent;
-                    let target;
-
-                    if (text.includes('%')) {
-                        target = parseFloat(text);
-                        animateCounter(stat, target, 2000);
-                    } else if (text.includes('+')) {
-                        target = parseInt(text);
-                        animateCounter(stat, target, 2000);
+        var observer = new IntersectionObserver(function(entries) {
+            for (var k = 0; k < entries.length; k++) {
+                if (entries[k].isIntersecting) {
+                    var statValues = entries[k].target.querySelectorAll('.stat-value');
+                    for (var m = 0; m < statValues.length; m++) {
+                        var text = statValues[m].textContent;
+                        var target = text.indexOf('%') !== -1 ? parseFloat(text) : parseInt(text);
+                        animateCounter(statValues[m], target, 2000);
                     }
-                });
-                observer.unobserve(entry.target);
+                    observer.unobserve(entries[k].target);
+                }
             }
-        });
-    }, observerOptions);
+        }, { threshold: 0.5 });
 
-    const statsSection = document.querySelector('.stats');
-    if (statsSection) {
         observer.observe(statsSection);
     }
 
-    const aboutLink = document.getElementById('about-link');
-    const aboutModal = document.getElementById('about-modal');
-    const modalClose = document.querySelector('.modal-close');
+    var aboutLink = document.getElementById('about-link');
+    var aboutModal = document.getElementById('about-modal');
+    var modalClose = document.querySelector('.modal-close');
 
     if (aboutLink && aboutModal) {
-        aboutLink.addEventListener('click', (e) => {
+        aboutLink.addEventListener('click', function(e) {
             e.preventDefault();
             aboutModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
 
-        aboutModal.addEventListener('click', (e) => {
+        aboutModal.addEventListener('click', function(e) {
             if (e.target === aboutModal) {
                 aboutModal.classList.remove('active');
                 document.body.style.overflow = '';
@@ -112,80 +98,84 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (modalClose) {
-        modalClose.addEventListener('click', () => {
+        modalClose.addEventListener('click', function() {
             aboutModal.classList.remove('active');
             document.body.style.overflow = '';
         });
     }
 
-(function() {
-    var options = document.querySelectorAll('.service-option input[type="checkbox"]');
-    for (var i = 0; i < options.length; i++) {
-        options[i].addEventListener('change', function() {
-            var label = this.parentNode;
+    var serviceCheckboxes = document.querySelectorAll('.service-option input[type="checkbox"]');
+    for (var n = 0; n < serviceCheckboxes.length; n++) {
+        serviceCheckboxes[n].addEventListener('change', function() {
+            var parent = this.parentNode;
             if (this.checked) {
-                label.classList.add('checked');
+                parent.classList.add('checked');
             } else {
-                label.classList.remove('checked');
+                parent.classList.remove('checked');
             }
         });
     }
-})();
 
-    const form = document.getElementById('project-form');
+    var form = document.getElementById('project-form');
     if (form) {
-        const showToast = (message, type) => {
-            const toast = document.getElementById('form-toast');
+        var showToast = function(message, type) {
+            var toast = document.getElementById('form-toast');
             if (!toast) return;
-            const icon = type === 'success' ? 'check-circle' : 'alert-circle';
-            toast.innerHTML = `<i data-lucide="${icon}"></i><span>${message}</span>`;
+            var icon = type === 'success' ? 'check-circle' : 'alert-circle';
+            toast.innerHTML = '<i data-lucide="' + icon + '"></i><span>' + message + '</span>';
             toast.className = 'form-toast show ' + type;
             lucide.createIcons();
             if (type === 'success') {
-                setTimeout(() => {
+                setTimeout(function() {
                     toast.className = 'form-toast';
                     toast.innerHTML = '';
                 }, 5000);
             }
         };
 
-        form.addEventListener('submit', async (e) => {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const toast = document.getElementById('form-toast');
+            var toast = document.getElementById('form-toast');
             if (toast) {
                 toast.className = 'form-toast';
                 toast.innerHTML = '';
             }
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
+            var submitBtn = form.querySelector('button[type="submit"]');
+            var originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i data-lucide="loader"></i> Envoi en cours...';
             submitBtn.disabled = true;
             lucide.createIcons();
 
-            try {
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    showToast(result.message, 'success');
-                    form.reset();
-                    document.querySelectorAll('.service-option.checked').forEach(el => el.classList.remove('checked'));
-                } else {
-                    showToast(result.message || 'Une erreur est survenue.', 'error');
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action);
+            xhr.onload = function() {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                lucide.createIcons();
+                try {
+                    var result = JSON.parse(xhr.responseText);
+                    if (result.success) {
+                        showToast(result.message, 'success');
+                        form.reset();
+                        var checkedItems = document.querySelectorAll('.service-option.checked');
+                        for (var p = 0; p < checkedItems.length; p++) {
+                            checkedItems[p].classList.remove('checked');
+                        }
+                    } else {
+                        showToast(result.message || 'Une erreur est survenue.', 'error');
+                    }
+                } catch (err) {
+                    showToast('Une erreur est survenue. Veuillez réessayer.', 'error');
                 }
-            } catch (error) {
+            };
+            xhr.onerror = function() {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                lucide.createIcons();
                 showToast('Une erreur est survenue. Veuillez réessayer.', 'error');
-                console.error('Form submission error:', error);
-            }
-
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            lucide.createIcons();
+            };
+            xhr.send(formData);
         });
     }
 
