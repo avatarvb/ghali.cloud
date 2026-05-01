@@ -32,6 +32,23 @@
 [data-theme="light"] .theme-toggle { border-color: rgba(0, 0, 0, 0.3); color: #000000; }
 [data-theme="light"] .theme-toggle .sun-icon { display: block; }
 [data-theme="light"] .theme-toggle .moon-icon { display: none; }
+[data-theme="light"] .form-container { background: #FAFAFA; border-color: #E6E6E6; }
+[data-theme="light"] .form-container::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+[data-theme="light"] .form-container h2 { color: #000000; }
+[data-theme="light"] .form-group label { color: #000000; }
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea,
+[data-theme="light"] .custom-select-wrapper .custom-select { background: #F5F5F5; border-color: #D9D9DD; color: #000000; }
+[data-theme="light"] .form-group input:hover,
+[data-theme="light"] .form-group textarea:hover,
+[data-theme="light"] .custom-select-wrapper .custom-select:hover { border-color: rgba(255, 192, 0, 0.5); }
+[data-theme="light"] .form-group input::placeholder,
+[data-theme="light"] .form-group textarea::placeholder { color: #93939F; opacity: 0.8; }
+[data-theme="light"] .service-option { background: #F5F5F5; border-color: #E6E6E6; }
+[data-theme="light"] .service-option:hover { border-color: rgba(255, 192, 0, 0.4); background: rgba(255, 192, 0, 0.04); }
+[data-theme="light"] .service-option.checked { background: rgba(255, 192, 0, 0.08); border-color: var(--gold); }
+[data-theme="light"] .custom-select option { background: #FAFAFA; color: #000000; }
+[data-theme="light"] .contact-direct { border-top-color: #E6E6E6; }
 
 [data-theme="dark"] .theme-toggle .moon-icon { display: block; }
 [data-theme="dark"] .theme-toggle .sun-icon { display: none; }
@@ -277,48 +294,96 @@ body {
 .footer-social a:hover svg { fill: var(--black); }
 
 .form-section { padding: 80px 0; background: var(--dark-iron); }
-.form-container { max-width: 700px; margin: 0 auto; background: var(--charcoal); padding: 48px; }
-.form-container h2 { font-size: 2rem; font-weight: 600; margin-bottom: 16px; text-transform: uppercase; }
-.form-container .form-subtitle { font-size: 16px; color: var(--ash); margin-bottom: 32px; }
-.form-group { margin-bottom: 24px; }
-.form-group label { display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.96px; color: var(--white); margin-bottom: 8px; }
+.form-container { max-width: 700px; margin: 0 auto; background: var(--charcoal); padding: 48px; border: 1px solid var(--dark-iron); position: relative; }
+.form-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.form-container h2 { font-size: 2rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+.form-container .form-subtitle { font-size: 16px; color: var(--ash); margin-bottom: 40px; }
+.form-group { margin-bottom: 28px; }
+.form-group label { display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.96px; color: var(--white); margin-bottom: 10px; }
 
 .form-group input,
-.form-group select,
 .form-group textarea {
     width: 100%; padding: 16px; font-size: 14px; font-family: inherit;
-    background: var(--dark-iron); border: 1px solid var(--ash); color: var(--white);
-    outline: none; transition: border-color 0.2s ease;
+    background: var(--dark-iron); border: 1px solid rgba(125, 125, 125, 0.4); color: var(--white);
+    outline: none; transition: all 0.2s ease;
 }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
-.form-group select { cursor: pointer; }
+.form-group input:hover,
+.form-group textarea:hover { border-color: rgba(255, 192, 0, 0.3); }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(24, 24, 24, 0.8); }
 
-.service-options { display: flex; flex-direction: column; gap: 12px; border: none; padding: 0; margin: 0; }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--ash); opacity: 0.6; }
+
+/* Custom Select — cross-browser consistent styling */
+.custom-select-wrapper { position: relative; }
+
+.custom-select-wrapper .custom-select {
+    width: 100%; padding: 16px 48px 16px 16px; font-size: 14px; font-family: inherit;
+    background: var(--dark-iron); border: 1px solid rgba(125, 125, 125, 0.4); color: var(--white);
+    outline: none; transition: all 0.2s ease; cursor: pointer;
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
+}
+.custom-select-wrapper .custom-select:hover { border-color: rgba(255, 192, 0, 0.3); }
+.custom-select-wrapper .custom-select:focus { border-color: var(--gold); background: rgba(24, 24, 24, 0.8); }
+
+.custom-select-wrapper .select-chevron {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    width: 20px; height: 20px; color: var(--ash); pointer-events: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.custom-select-wrapper .custom-select:focus ~ .select-chevron { color: var(--gold); }
+
+/* Style native select options for browsers that support it */
+.custom-select option { background: var(--charcoal); color: var(--white); padding: 12px; }
+.custom-select option:checked { background: rgba(255, 192, 0, 0.15); color: var(--gold); }
+.custom-select.has-value { color: var(--gold); }
+[data-theme="light"] .custom-select.has-value { color: #B8860B; }
+
+.service-options { display: flex; flex-direction: column; gap: 8px; border: none; padding: 0; margin: 0; }
 
 .service-option {
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 16px 20px; border: none; background: var(--dark-iron); cursor: pointer;
-    transition: all 0.2s ease; font-size: 14px;
+    padding: 16px 20px; border: 1px solid rgba(125, 125, 125, 0.2); background: var(--dark-iron); cursor: pointer;
+    transition: all 0.2s ease; font-size: 14px; position: relative;
 }
-.service-option:hover { background: rgba(255, 192, 0, 0.04); }
+.service-option:hover { border-color: rgba(255, 192, 0, 0.3); background: rgba(255, 192, 0, 0.03); }
 .service-option input[type="checkbox"] { display: none; }
 
 .service-option.checked {
     background: rgba(255, 192, 0, 0.06);
-    border-left: 3px solid var(--gold);
-    padding-left: 17px;
+    border-color: var(--gold);
 }
 .service-option.checked span { color: var(--gold); }
+.service-option.checked::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold);
+}
 
-.form-group textarea { min-height: 120px; resize: vertical; }
+.form-group textarea { min-height: 140px; resize: vertical; line-height: 1.6; }
 
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-.contact-direct { margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--dark-iron); text-align: center; }
-.contact-direct p { font-size: 14px; color: var(--ash); margin-bottom: 16px; }
-.contact-link { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: var(--white); text-decoration: none; margin-bottom: 8px; transition: color 0.2s ease; }
+.contact-direct { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--dark-iron); text-align: center; }
+.contact-direct p { font-size: 14px; color: var(--ash); margin-bottom: 20px; }
+.contact-link { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: var(--white); text-decoration: none; margin-bottom: 10px; transition: color 0.2s ease; }
 .contact-link:hover { color: var(--gold); }
 .contact-link i { width: 16px; height: 16px; color: var(--gold); }
+
+/* Submit button inside form */
+form .btn-gold {
+    width: 100%; padding: 20px 40px; font-size: 14px;
+    font-weight: 400; text-transform: uppercase; letter-spacing: 0.14px; text-decoration: none;
+    transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 16px;
+    border: none; cursor: pointer; font-family: inherit; position: relative; overflow: hidden;
+}
+form .btn-gold::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.5s ease;
+}
+form .btn-gold:hover::before { left: 100%; }
+form .btn-gold:hover { background: var(--gold-dark); transform: translateY(-1px); }
+form .btn-gold:active { transform: translateY(0); }
+form .btn-gold i, form .btn-gold svg { width: 20px; height: 20px; }
 
 .form-toast {
     display: none; padding: 16px 20px; margin-bottom: 24px; font-size: 14px;

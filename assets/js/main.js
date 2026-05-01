@@ -116,6 +116,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    var customSelects = document.querySelectorAll('.custom-select');
+    for (var s = 0; s < customSelects.length; s++) {
+        (function(sel) {
+            var wrapper = sel.closest('.custom-select-wrapper');
+            var chevron = wrapper.querySelector('.select-chevron');
+            sel.addEventListener('focus', function() {
+                chevron.style.transform = 'translateY(-50%) rotate(180deg)';
+            });
+            sel.addEventListener('blur', function() {
+                chevron.style.transform = 'translateY(-50%) rotate(0deg)';
+            });
+            sel.addEventListener('change', function() {
+                if (sel.value) {
+                    sel.style.color = '';
+                    sel.classList.add('has-value');
+                } else {
+                    sel.style.color = '';
+                    sel.classList.remove('has-value');
+                }
+            });
+        })(customSelects[s]);
+    }
+
     var form = document.getElementById('project-form');
     if (form) {
         var showToast = function(message, type) {
