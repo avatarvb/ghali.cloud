@@ -81,7 +81,7 @@
                 <i data-lucide="moon" class="moon-icon"></i>
                 <i data-lucide="sun" class="sun-icon"></i>
             </button>
-            <button class="mobile-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
+            <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -98,7 +98,7 @@
         </ul>
     </nav>
 
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu">
         <ul>
             <li><a href="#solutions"><i data-lucide="grid-3x3"></i> SOLUTIONS</a></li>
             <li><a href="#approach"><i data-lucide="compass"></i> APPROCHE</a></li>
