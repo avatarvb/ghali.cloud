@@ -130,31 +130,27 @@
                     </div>
                     <div class="form-group">
                         <label>Budget</label>
-                        <div class="multi-select" data-multi-select>
-                            <div class="multi-select-trigger" tabindex="0" role="button" aria-expanded="false">
-                                <span class="multi-select-placeholder">Sélectionnez une fourchette</span>
-                                <span class="multi-select-count" style="display:none;"></span>
-                                <i data-lucide="chevron-down" class="multi-chevron"></i>
+                        <div class="select" data-select>
+                            <div class="select-trigger" tabindex="0" role="button" aria-expanded="false">
+                                <span class="select-placeholder">Sélectionnez une fourchette</span>
+                                <span class="select-value"></span>
+                                <i data-lucide="chevron-down" class="select-chevron"></i>
                             </div>
-                            <div class="multi-select-dropdown">
-                                <label class="multi-select-option">
-                                    <input type="checkbox" name="budget[]" value="small">
-                                    <span class="multi-checkbox"></span>
+                            <div class="select-dropdown">
+                                <label class="select-option">
+                                    <input type="radio" name="budget" value="small">
                                     <span>Moins de 10 000 MAD</span>
                                 </label>
-                                <label class="multi-select-option">
-                                    <input type="checkbox" name="budget[]" value="medium">
-                                    <span class="multi-checkbox"></span>
+                                <label class="select-option">
+                                    <input type="radio" name="budget" value="medium">
                                     <span>10 000 MAD - 50 000 MAD</span>
                                 </label>
-                                <label class="multi-select-option">
-                                    <input type="checkbox" name="budget[]" value="large">
-                                    <span class="multi-checkbox"></span>
+                                <label class="select-option">
+                                    <input type="radio" name="budget" value="large">
                                     <span>50 000 MAD - 100 000 MAD</span>
                                 </label>
-                                <label class="multi-select-option">
-                                    <input type="checkbox" name="budget[]" value="enterprise">
-                                    <span class="multi-checkbox"></span>
+                                <label class="select-option">
+                                    <input type="radio" name="budget" value="enterprise">
                                     <span>Plus de 100 000 MAD</span>
                                 </label>
                             </div>
