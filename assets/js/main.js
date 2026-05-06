@@ -1,6 +1,8 @@
-lucide.createIcons();
-
 document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
     const nav = document.querySelector('.nav');
     const themeToggles = document.querySelectorAll('.theme-toggle');
     const html = document.documentElement;
@@ -203,7 +205,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const icon = type === 'success' ? 'check-circle' : 'alert-circle';
             toast.innerHTML = '<i data-lucide="' + icon + '"></i><span>' + message + '</span>';
             toast.className = 'form-toast show ' + type;
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
             if (type === 'success') {
                 setTimeout(function() {
                     toast.className = 'form-toast';
@@ -220,18 +224,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 toast.innerHTML = '';
             }
             const submitBtn = form.querySelector('button[type="submit"]');
+            if (!submitBtn) return;
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i data-lucide="loader"></i> Envoi en cours...';
             submitBtn.disabled = true;
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
 
             const formData = new FormData(form);
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', form.action);
+            xhr.open('POST', form.action || 'contact.php');
             xhr.onload = function() {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-                lucide.createIcons();
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
                 try {
                     const result = JSON.parse(xhr.responseText);
                     if (result.success) {
@@ -256,12 +265,16 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.onerror = function() {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-                lucide.createIcons();
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
                 showToast('Une erreur est survenue. Veuillez reessayer.', 'error');
             };
             xhr.send(formData);
         });
     }
 
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 });

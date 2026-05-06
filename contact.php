@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $company = isset($_POST['company']) ? trim($_POST['company']) : '';
     $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
     $service = isset($_POST['service']) ? $_POST['service'] : [];
-    $budget = isset($_POST['budget']) ? $_POST['budget'] : [];
+    $budget = isset($_POST['budget']) ? trim($_POST['budget']) : '';
     $message = isset($_POST['message']) ? trim($_POST['message']) : '';
 
     $errors = [];
@@ -137,15 +137,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'enterprise' => 'Plus de 100 000 MAD'
     ];
     $budget_text = '';
-    if (is_array($budget)) {
-        $budget_labels_arr = [];
-        foreach ($budget as $b) {
-            $b = trim(htmlspecialchars($b));
-            if (isset($budget_labels[$b])) {
-                $budget_labels_arr[] = $budget_labels[$b];
-            }
+    if (!empty($budget)) {
+        $budget = trim(htmlspecialchars($budget));
+        if (isset($budget_labels[$budget])) {
+            $budget_text = $budget_labels[$budget];
         }
-        $budget_text = implode(', ', $budget_labels_arr);
     }
 
     $email_content = "

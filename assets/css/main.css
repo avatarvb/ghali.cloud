@@ -38,10 +38,12 @@
 [data-theme="light"] .form-group label { color: #000000; }
 [data-theme="light"] .form-group input,
 [data-theme="light"] .form-group textarea,
-[data-theme="light"] .custom-select-wrapper .custom-select { background: #F5F5F5; border-color: #D9D9DD; color: #000000; }
+[data-theme="light"] .custom-select-wrapper .custom-select { background: #F5F5F5; border-color: #D9D9DD; color: #000000; border-radius: 22px; }
 [data-theme="light"] .form-group input:hover,
 [data-theme="light"] .form-group textarea:hover,
 [data-theme="light"] .custom-select-wrapper .custom-select:hover { border-color: rgba(255, 192, 0, 0.5); }
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group textarea:focus { border-color: #9b60aa; box-shadow: 0 0 0 2px rgba(26, 99, 220, 0.5); }
 [data-theme="light"] .form-group input::placeholder,
 [data-theme="light"] .form-group textarea::placeholder { color: #93939F; opacity: 0.8; }
 [data-theme="light"] .service-option { background: #F5F5F5; }
@@ -57,8 +59,9 @@
 [data-theme="light"] .multi-select-option input:checked + .multi-checkbox::after { border-color: #B8860B; }
 [data-theme="light"] .multi-select-option input:checked ~ span:last-child { color: #B8860B; }
 [data-theme="light"] .multi-select-dropdown::-webkit-scrollbar-track { background: #F0F0F0; }
-[data-theme="light"] .form-select { background: #F5F5F5; border-color: #D9D9DD; color: #000000; }
+[data-theme="light"] .form-select { background: #F5F5F5; border-color: #D9D9DD; color: #000000; border-radius: 22px; }
 [data-theme="light"] .form-select:hover { border-color: rgba(255, 192, 0, 0.5); }
+[data-theme="light"] .form-select:focus { border-color: #9b60aa; box-shadow: 0 0 0 2px rgba(26, 99, 220, 0.5); }
 [data-theme="light"] .contact-direct { border-top-color: #E6E6E6; }
 
 [data-theme="dark"] .theme-toggle .moon-icon { display: block; }
@@ -316,23 +319,33 @@ body {
 .form-group textarea {
     width: 100%; padding: 16px; font-size: 14px; font-family: inherit;
     background: var(--dark-iron); border: 1px solid rgba(125, 125, 125, 0.4); color: var(--white);
-    outline: none; transition: all 0.2s ease;
+    outline: none; transition: all 0.2s ease; border-radius: 22px;
 }
 .form-group input:hover,
 .form-group textarea:hover { border-color: rgba(255, 192, 0, 0.3); }
-.form-group input:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(24, 24, 24, 0.8); }
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #9b60aa;
+    background: rgba(24, 24, 24, 0.8);
+    box-shadow: 0 0 0 2px rgba(26, 99, 220, 0.5);
+}
 
 .form-select {
     width: 100%; padding: 16px 48px 16px 16px; font-size: 14px; font-family: inherit;
     background: var(--dark-iron); border: 1px solid rgba(125, 125, 125, 0.4); color: var(--white);
-    outline: none; transition: all 0.2s ease; cursor: pointer; appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    outline: none; transition: all 0.2s ease; cursor: pointer;
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%237D7D7D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
     background-size: 20px;
+    border-radius: 22px;
 }
 .form-select:hover { border-color: rgba(255, 192, 0, 0.3); }
-.form-select:focus { border-color: var(--gold); background-color: rgba(24, 24, 24, 0.8); }
+.form-select:focus {
+    border-color: #9b60aa;
+    background-color: rgba(24, 24, 24, 0.8);
+    box-shadow: 0 0 0 2px rgba(26, 99, 220, 0.5);
+}
 .form-select option { background: var(--charcoal); color: var(--white); padding: 8px; }
 .form-select::-ms-expand { display: none; }
 
