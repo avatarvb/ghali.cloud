@@ -136,6 +136,112 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    const chatButton = document.getElementById('chat-widget-button');
+    const chatContainer = document.getElementById('chat-widget-container');
+    const chatClose = document.getElementById('chat-close');
+    const chatInput = document.getElementById('chat-widget-input');
+    const chatSend = document.getElementById('chat-widget-send');
+    const chatBody = document.getElementById('chat-widget-body');
+
+    if (chatContainer) {
+        function getChatId() {
+            let chatId = sessionStorage.getItem('chatId');
+            if (!chatId) {
+                chatId = 'chat_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('chatId', chatId);
+            }
+            return chatId;
+        }
+
+        function addMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = 'chat-message ' + type;
+            msg.innerHTML = '<p>' + text + '</p>';
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showTyping() {
+            const typing = document.createElement('div');
+            typing.className = 'chat-typing';
+            typing.id = 'typing-indicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            chatBody.appendChild(typing);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        if (chatButton) {
+            chatButton.addEventListener('click', function() {
+                chatContainer.classList.add('active');
+                chatButton.classList.add('hidden');
+            });
+        }
+
+        if (chatClose) {
+            chatClose.addEventListener('click', function() {
+                chatContainer.classList.remove('active');
+                chatButton.classList.remove('hidden');
+            });
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            chatInput.value = '';
+            showTyping();
+
+            const chatId = getChatId();
+            const webhookUrl = window.ChatWidgetConfig ? window.ChatWidgetConfig.webhook.url : '';
+
+            if (!webhookUrl) {
+                setTimeout(function() {
+                    removeTyping();
+                    addMessage('Merci pour votre message. Notre équipe vous répondra sous peu.', 'bot');
+                }, 1000);
+                return;
+            }
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chatId: chatId,
+                    message: message,
+                    route: window.ChatWidgetConfig.webhook.route || 'general'
+                })
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                removeTyping();
+                addMessage(data.output || 'Désolé, je n\'ai pas pu comprendre.', 'bot');
+            })
+            .catch(function(error) {
+                removeTyping();
+                addMessage('Une erreur est survenue. Veuillez réessayer.', 'bot');
+            });
+        }
+
+        if (chatSend) {
+            chatSend.addEventListener('click', sendMessage);
+        }
+
+        if (chatInput) {
+            chatInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+    }
+
     const multiWrappers = document.querySelectorAll('[data-multi-select]');
     multiWrappers.forEach(function(wrapper) {
         const trigger = wrapper.querySelector('.multi-select-trigger');

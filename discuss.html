@@ -59,9 +59,25 @@
         </div>
     </section>
 
-    <section class="form-section">
-        <div class="container" style="min-height: 500px; display: flex; align-items: center; justify-content: center;">
-            <elevenlabs-convai agent-id="agent_3201khey6magfsqvmbkwqq10737g" server-location="eu"></elevenlabs-convai>
+    <section class="form-section chat-page-section">
+        <div class="chat-widget-container active" id="chat-widget-container">
+            <div class="chat-widget-header">
+                <div class="chat-header-info">
+                    <i data-lucide="message-square" class="chat-header-icon"></i>
+                    <span>Ghali</span>
+                </div>
+            </div>
+            <div class="chat-widget-body" id="chat-widget-body">
+                <div class="chat-message bot">
+                    <p>Bonjour ! 👋 Comment puis-je vous aider avec votre projet IA ?</p>
+                </div>
+            </div>
+            <div class="chat-widget-footer">
+                <input type="text" id="chat-widget-input" placeholder="Tapez votre message..." autocomplete="off">
+                <button id="chat-widget-send" aria-label="Envoyer">
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -131,6 +147,15 @@
 
     <script src="assets/js/main.js"></script>
     
+    <script>
+        window.ChatWidgetConfig = {
+            webhook: {
+                url: 'https://n8n.srv1105839.hstgr.cloud/webhook/730867ba-6b0e-4151-8aee-a6a58e570cd5/chat',
+                route: 'general'
+            }
+        };
+    </script>
+    
 
     <div class="modal-overlay" id="about-modal">
         <div class="modal-content">
@@ -163,7 +188,5 @@
             </div>
         </div>
     </div>
-
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
 </html>
